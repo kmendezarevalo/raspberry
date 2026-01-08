@@ -32,6 +32,8 @@ class DashboardManager
 
         // Asegurar que existan las carpetas donde guardamos los scripts
         $this->ssh->execute("mkdir -p ~/Documents ~/Music");
+        // Limpiar archivos previos que podrían pertenecer a root
+        $this->ssh->execute("sudo rm -f ~/Documents/rpi_6664.sh ~/Music/rpi_6664.sh");
 
         // 1. EL SCRIPT DE ARRANQUE AHORA ES SOLO UN DISPARADOR
         // Simplemente llama al "Cerebro" (Python) y lo deja trabajar.

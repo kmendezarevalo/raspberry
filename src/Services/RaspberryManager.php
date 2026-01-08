@@ -9,7 +9,7 @@ class RaspberryManager
 
     public function __construct(string $ip, string $password = '')
     {
-        $this->ssh = new SSHManager($ip, 'raspberry', $password);
+        $this->ssh = new SSHManager($ip, 'pi', $password);
         $this->tokenManager = new TokenManager();
     }
 
