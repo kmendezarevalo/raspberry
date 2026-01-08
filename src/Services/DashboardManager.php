@@ -30,6 +30,9 @@ class DashboardManager
         // Limpiamos logs viejos para tener un diagnóstico fresco
         $this->ssh->execute("rm -f /home/pi/boot_debug.log /home/pi/refresh_error.log");
 
+        // Asegurar que existan las carpetas donde guardamos los scripts
+        $this->ssh->execute("mkdir -p /home/pi/Documents /home/pi/Music");
+
         // 1. EL SCRIPT DE ARRANQUE AHORA ES SOLO UN DISPARADOR
         // Simplemente llama al "Cerebro" (Python) y lo deja trabajar.
         $triggerCmd = "cat << 'STARTUP_EOF' > /home/pi/Documents/rpi_6664.sh\n" .
