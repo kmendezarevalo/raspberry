@@ -25,31 +25,31 @@ class DashboardManager
 
         // 0. Preparar entorno
         $this->ssh->execute("sudo apt-get install -y xdotool python3-requests -qq || true");
-        $this->ssh->execute("mkdir -p /home/pi/.config/autostart");
+        $this->ssh->execute("mkdir -p ~/.config/autostart");
         $this->ssh->execute("sudo rm -f /etc/xdg/autostart/autostartPi.desktop");
         // Limpiamos logs viejos para tener un diagnóstico fresco
-        $this->ssh->execute("rm -f /home/pi/boot_debug.log /home/pi/refresh_error.log");
+        $this->ssh->execute("rm -f ~/boot_debug.log ~/refresh_error.log");
 
         // Asegurar que existan las carpetas donde guardamos los scripts
-        $this->ssh->execute("mkdir -p /home/pi/Documents /home/pi/Music");
+        $this->ssh->execute("mkdir -p ~/Documents ~/Music");
 
         // 1. EL SCRIPT DE ARRANQUE AHORA ES SOLO UN DISPARADOR
         // Simplemente llama al "Cerebro" (Python) y lo deja trabajar.
-        $triggerCmd = "cat << 'STARTUP_EOF' > /home/pi/Documents/rpi_6664.sh\n" .
+        $triggerCmd = "cat << 'STARTUP_EOF' > ~/Documents/rpi_6664.sh\n" .
             "#!/bin/bash\n" .
             "## Disparador LTLabs - Llama al script Maestro de Python\n" .
-            "python3 /home/pi/refresh_lt.py --boot > /home/pi/boot_debug.log 2>&1 &\n" .
+            "python3 ~/refresh_lt.py --boot > ~/boot_debug.log 2>&1 &\n" .
             "STARTUP_EOF\n" .
-            "cp /home/pi/Documents/rpi_6664.sh /home/pi/Music/rpi_6664.sh && " .
-            "chmod +x /home/pi/Documents/rpi_6664.sh /home/pi/Music/rpi_6664.sh";
+            "cp ~/Documents/rpi_6664.sh ~/Music/rpi_6664.sh && " .
+            "chmod +x ~/Documents/rpi_6664.sh ~/Music/rpi_6664.sh";
         $this->ssh->execute($triggerCmd);
 
         // 2. TRIGGER DE AUTOSTART (User level)
-        $cmdDesktop = "cat << 'DESKTOP_EOF' > /home/pi/.config/autostart/ltlabs.desktop\n" .
+        $cmdDesktop = "cat << 'DESKTOP_EOF' > ~/.config/autostart/ltlabs.desktop\n" .
             "[Desktop Entry]\n" .
             "Name=LTLabs Dashboard\n" .
             "Type=Application\n" .
-            "Exec=bash /home/pi/Documents/rpi_6664.sh\n" .
+            "Exec=bash ~/Documents/rpi_6664.sh\n" .
             "Terminal=false\n" .
             "DESKTOP_EOF";
         $this->ssh->execute($cmdDesktop);
@@ -66,7 +66,7 @@ import requests, os, time, subprocess, sys
 def run_browser(url):
     print(f"Abriendo Chromium con URL: {url}")
     os.environ["DISPLAY"] = ":0"
-    os.environ["XAUTHORITY"] = "/home/pi/.Xauthority"
+    os.environ["XAUTHORITY"] = os.path.expanduser("~/.Xauthority")
     # Cerramos instancias viejas para evitar bloqueos de perfil
     subprocess.run("pkill -9 chromium", shell=True)
     time.sleep(2)
@@ -113,11 +113,11 @@ if __name__ == "__main__":
 PYTHON;
 
         $escapedPython = str_replace("'", "'\\''", $refreshScript);
-        $cmdPersist = "echo '{$escapedPython}' > /tmp/refresh_lt.py && sudo mv /tmp/refresh_lt.py /home/pi/refresh_lt.py && sudo chmod +x /home/pi/refresh_lt.py && sudo chown pi:pi /home/pi/refresh_lt.py";
+        $cmdPersist = "echo '{$escapedPython}' > /tmp/refresh_lt.py && sudo mv /tmp/refresh_lt.py ~/refresh_lt.py && sudo chmod +x ~/refresh_lt.py && sudo chown \$USER:\$USER ~/refresh_lt.py";
         $this->ssh->execute($cmdPersist);
 
         // 4. CRONTAB LIMPIO (Sin @reboot para evitar dobles arranques)
-        $cronCmd = '(crontab -l 2>/dev/null | grep -v "refresh_lt.py"; echo "0 */6 * * * python3 /home/pi/refresh_lt.py") | crontab -';
+        $cronCmd = '(crontab -l 2>/dev/null | grep -v "refresh_lt.py"; echo "0 */6 * * * python3 ~/refresh_lt.py") | crontab -';
         $this->ssh->execute($cronCmd);
 
         return true;

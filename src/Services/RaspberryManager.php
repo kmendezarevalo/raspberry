@@ -9,7 +9,7 @@ class RaspberryManager
 
     public function __construct(string $ip, string $password = '')
     {
-        $this->ssh = new SSHManager($ip, 'pi', $password);
+        $this->ssh = new SSHManager($ip, 'raspberry', $password);
         $this->tokenManager = new TokenManager();
     }
 
@@ -44,7 +44,7 @@ class RaspberryManager
             // 4. Limpiar y Reiniciar si hubo cambios
             if (!empty($results)) {
                 // Usamos un pequeño delay y disparar al fondo para que SSH no se cierre antes de que PHP reciba el OK
-                $cmdCleanup = "sudo killall -9 chromium-browser 2>/dev/null; sudo rm -rf /home/pi/.config/chromium/Singleton* 2>/dev/null; sync; (sleep 2 && sudo reboot) > /dev/null 2>&1 &";
+                $cmdCleanup = "sudo killall -9 chromium-browser 2>/dev/null; sudo rm -rf ~/.config/chromium/Singleton* 2>/dev/null; sync; (sleep 2 && sudo reboot) > /dev/null 2>&1 &";
                 $this->ssh->execute($cmdCleanup);
                 $results[] = "⚡ Reiniciando Raspberry para aplicar cambios...";
             }

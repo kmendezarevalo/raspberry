@@ -12,7 +12,7 @@ class SSHManager
     private $user;
     private $password;
 
-    public function __construct(string $host, string $user = 'pi', string $password = '')
+    public function __construct(string $host, string $user = 'raspberry', string $password = '')
     {
         $this->host = $host;
         $this->user = $user;
