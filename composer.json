@@ -1,0 +1,14 @@
+{
+    "name": "ltlabs/raspberry-manager",
+    "description": "Professional Raspberry Pi Management Tool for LTLabs",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {
+        "phpseclib/phpseclib": "^3.0"
+    }
+}
