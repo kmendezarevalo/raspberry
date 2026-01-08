@@ -12,7 +12,7 @@ class SSHManager
     private $user;
     private $password;
 
-    public function __construct(string $host, string $user = 'raspberry', string $password = '')
+    public function __construct(string $host, string $user = 'pi', string $password = '')
     {
         $this->host = $host;
         $this->user = $user;
@@ -29,7 +29,7 @@ class SSHManager
             // timeout de 10 segundos para la conexión inicial
             $this->ssh = new SSH2($this->host, 22, 10);
             if (!$this->ssh->login($this->user, $this->password)) {
-                throw new Exception("Fallo de login SSH en " . $this->host . ". Revisa que el usuario 'pi' y el password sean correctos.");
+                throw new Exception("Fallo de login SSH en " . $this->host . ". Revisa que el usuario '{$this->user}' y el password sean correctos.");
             }
             // Timeout de ejecución de comandos (30s)
             $this->ssh->setTimeout(30);

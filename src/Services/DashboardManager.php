@@ -51,7 +51,7 @@ class DashboardManager
             "[Desktop Entry]\n" .
             "Name=LTLabs Dashboard\n" .
             "Type=Application\n" .
-            "Exec=bash ~/Documents/rpi_6664.sh\n" .
+            "Exec=bash -c 'bash ~/Documents/rpi_6664.sh'\n" .
             "Terminal=false\n" .
             "DESKTOP_EOF";
         $this->ssh->execute($cmdDesktop);
