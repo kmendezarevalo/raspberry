@@ -127,7 +127,7 @@ if ($isSyncApi) {
         </footer>
     </div>
 
-    <script src="assets/js/main.js?v=2.1"></script>
+    <script src="assets/js/main.js?v=2.2"></script>
 </body>
 
 </html>
