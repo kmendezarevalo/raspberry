@@ -11,20 +11,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const isOpen = collapsibleContent.style.display === "block";
 
     if (!isOpen && !isUnlocked) {
-      const { value: password } = await Swal.fire({
-        title: "Acceso Protegido",
-        input: "password",
-        inputLabel: "Ingrese la contraseña para opciones avanzadas",
-        inputPlaceholder: "Contraseña",
-        inputAttributes: {
-          autocapitalize: "off",
-          autocorrect: "off",
-        },
-        showCancelButton: true,
-        background: "#1e1b4b",
-        color: "#fff",
-        confirmButtonColor: "#4f46e5",
-      });
+            const { value: password } = await Swal.fire({
+                title: 'Acceso Protegido',
+                input: 'password',
+                inputLabel: 'Ingrese la contraseña para opciones avanzadas',
+                inputPlaceholder: 'Contraseña',
+                showCancelButton: true,
+                background: 'transparent',
+                color: '#fff',
+                confirmButtonColor: '#4f46e5',
+                cancelButtonColor: 'rgba(255,255,255,0.1)',
+                customClass: {
+                    popup: 'glass-popup',
+                    title: 'glass-title',
+                    input: 'glass-input'
+                }
+            });
 
       if (password === "$upertex#123") {
         isUnlocked = true;
