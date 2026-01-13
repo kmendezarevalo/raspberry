@@ -83,17 +83,17 @@ if ($isSyncApi) {
                         </div>
                     </div>
 
-                    <div class="form-group checkbox-group">
-                        <label class="switch">
-                            <input type="checkbox" id="glpi">
-                            <span class="slider round"></span>
-                        </label>
-                        <span>Instalar / Verificar GLPI</span>
-                    </div>
-
                     <div class="collapsible">
-                        <button type="button" class="collapsible-trigger">Opciones de Hostname (Opcional)</button>
+                        <button type="button" class="collapsible-trigger">Opciones Avanzadas (Protegido)</button>
                         <div class="collapsible-content">
+                            <div class="form-group checkbox-group">
+                                <label class="switch">
+                                    <input type="checkbox" id="glpi">
+                                    <span class="slider round"></span>
+                                </label>
+                                <span>Instalar / Verificar GLPI</span>
+                            </div>
+
                             <div class="form-group">
                                 <label>Nuevo Hostname</label>
                                 <input type="text" id="hostname" placeholder="EC-XXXX">
