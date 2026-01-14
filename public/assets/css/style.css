@@ -81,7 +81,7 @@ header {
 
 .brand-logo.supertex {
   height: 28px;
-  filter: brightness(1.2) drop-shadow(0 0 5px rgba(255,255,255,0.1));
+  filter: brightness(1.2) drop-shadow(0 0 5px rgba(255, 255, 255, 0.1));
 }
 
 .brand-logo.ltlabs {
@@ -91,7 +91,12 @@ header {
 .brand-divider {
   width: 1px;
   height: 24px;
-  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.2), transparent);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
 }
 
 .brand-text {
@@ -348,4 +353,13 @@ footer {
   text-align: center;
   font-size: 12px;
   color: var(--text-muted);
+}
+
+/* SweetAlert2 Custom Styling */
+.swal2-container {
+  z-index: 99999 !important;
+}
+
+.swal2-popup {
+  z-index: 100000 !important;
 }
