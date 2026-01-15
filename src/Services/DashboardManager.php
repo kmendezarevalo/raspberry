@@ -21,7 +21,8 @@ class DashboardManager
         $extras = "&factoryId=41&userId=1156&language=null";
 
         $lineName = str_starts_with($mfgLine, "SPTX") ? $mfgLine : "SPTX_SLV_CH-" . $mfgLine;
-        $targetUrl = "{$baseUrl}&mfgLine={$lineName}&accessToken={$this->token}{$extras}";
+        $encodedLineName = urlencode($lineName);
+        $targetUrl = "{$baseUrl}&mfgLine={$encodedLineName}&accessToken={$this->token}{$extras}";
 
         // 0. Preparar entorno
         $this->ssh->execute("sudo apt-get install -y xdotool python3-requests -qq || true");
@@ -64,6 +65,7 @@ class DashboardManager
         $refreshScript = <<<PYTHON
 #!/usr/bin/python3
 import requests, os, time, subprocess, sys
+from urllib.parse import quote
 
 def run_browser(url):
     print(f"Abriendo Chromium con URL: {url}")
@@ -101,7 +103,8 @@ def main():
         token = resp.json().get("accessToken")
         
         if token:
-            target_url = f"https://supertex.ltlabs.co/dashboard/endline/?factory=SPTX_SLV_01&companyCode=SPTX_COL&mfgLine={$lineName}&accessToken={token}&factoryId=41&userId=1156&language=null"
+            encoded_line = quote("{$lineName}")
+            target_url = f"https://supertex.ltlabs.co/dashboard/endline/?factory=SPTX_SLV_01&companyCode=SPTX_COL&mfgLine={encoded_line}&accessToken={token}&factoryId=41&userId=1156&language=null"
             run_browser(target_url)
         else:
             run_browser("{$targetUrl}")
