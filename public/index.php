@@ -52,7 +52,7 @@ if ($isSyncApi) {
     <title>LTLabs | Raspberry Manager Professional</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="assets/img/logo.png">
-    <link rel="stylesheet" href="assets/css/style.css?v=2.4">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.5">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -79,7 +79,7 @@ if ($isSyncApi) {
                     <div class="grid">
                         <div class="form-group">
                             <label>Celda (Dashboard)</label>
-                            <input type="text" id="celda" placeholder="VICENZA">
+                            <input type="text" id="celda" class="uppercase-input" placeholder="VICENZA">
                         </div>
                     </div>
 
@@ -127,7 +127,7 @@ if ($isSyncApi) {
         </footer>
     </div>
 
-    <script src="assets/js/main.js?v=2.3"></script>
+    <script src="assets/js/main.js?v=2.4"></script>
 </body>
 
 </html>

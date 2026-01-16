@@ -149,6 +149,10 @@ input:focus {
   box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
 }
 
+.uppercase-input {
+  text-transform: uppercase;
+}
+
 .checkbox-group {
   display: flex;
   align-items: center;

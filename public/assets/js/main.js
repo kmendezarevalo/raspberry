@@ -55,6 +55,14 @@ document.addEventListener("DOMContentLoaded", () => {
       : "Opciones Avanzadas (Protegido)";
   });
 
+  // Auto-uppercase for celda input
+  const celdaInput = document.getElementById('celda');
+  if (celdaInput) {
+    celdaInput.addEventListener('input', (e) => {
+      e.target.value = e.target.value.toUpperCase();
+    });
+  }
+
   // Logger util
   function addLog(message, type = "info") {
     const entry = document.createElement("div");
